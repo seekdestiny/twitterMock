@@ -8,6 +8,7 @@ from django.contrib.auth import authenticate, login as auth_login
 #my own model and settings
 from stream_twitter.models import Follow
 from stream_twitter.models import Tweet
+from stream_twitter.forms import FollowForm
 from django.contrib.auth.models import User
 from twitterMock import settings
 
@@ -57,6 +58,24 @@ class HomeView(CreateView):
             'users': User.objects.order_by('date_joined')[:50]
         }
         return render_to_response('stream_twitter/home.html', context_dict, context)
+
+def discover(request):
+    users = User.objects.order_by('date_joined')[:50]
+    login_user = User.objects.get(username=request.user)
+    following = []
+    for i in users:
+        if len(i.followers.filter(user=login_user.id)) == 0:
+            following.append((i, False))
+        else:
+            following.append((i, True))
+    login_user = User.objects.get(username=request.user)
+    context = {
+        'users': users,
+        'form': FollowForm(),
+        'login_user': request.user,
+        'following': following
+    }
+    return render(request, 'stream_twitter/follow_form.html', context)
 
 def user(request, user_name):
     user = get_object_or_404(User, username=user_name)
