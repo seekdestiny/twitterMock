@@ -49,7 +49,7 @@ class HomeView(CreateView):
         if not request.user.is_authenticated() and not settings.USE_AUTH:
             admin_user = authenticate(
                 username=settings.DEMO_USERNAME, password=settings.DEMO_PASSWORD)
-            #auth_login(request, admin_user)
+            auth_login(request, admin_user)
         context = RequestContext(request)
         context_dict = {
             'greeting': self.greeting,
