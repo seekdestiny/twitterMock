@@ -12,4 +12,5 @@ urlpatterns = patterns('',
     url(r'^$', views.HomeView.as_view()),   
     url(r'^timeline/', login_required(views.TimelineView.as_view())),
     url(r'^user/(?P<user_name>.+)/$', views.user),
+    url(r'^accounts/', include('allauth.urls')),
 )
