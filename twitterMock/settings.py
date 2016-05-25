@@ -85,6 +85,12 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
+
+USE_AUTH = bool(os.environ.get('USE_AUTH'))
+
+DEMO_USERNAME = 'jifeiqian'
+DEMO_PASSWORD = 'Alien880125'
+
 # my own api keys from https://getstream.io/dashboard/
 STREAM_API_KEY = 'tb4msmgwg633'
 STREAM_API_SECRET = '8xy5ueyjkn4gnpfuzyexh23matwprfr7xarp3mhjkwbutmszeu6fzgew4hw8gum9'
