@@ -1,0 +1,5 @@
+django-admin startproject twitterMock
+python manage.py startapp stream_twitter
+python mangae.py runserver
+python manage.py makemigrations stream_twitter
+python manage.py migrate
