@@ -36,6 +36,9 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'stream_twitter',
+    'stream_django',
+    'twitterMock'
 )
 
 MIDDLEWARE_CLASSES = (
@@ -81,3 +84,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.7/howto/static-files/
 
 STATIC_URL = '/static/'
+
+# my own api keys from https://getstream.io/dashboard/
+STREAM_API_KEY = 'tb4msmgwg633'
+STREAM_API_SECRET = '8xy5ueyjkn4gnpfuzyexh23matwprfr7xarp3mhjkwbutmszeu6fzgew4hw8gum9'
