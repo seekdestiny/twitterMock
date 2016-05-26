@@ -3,3 +3,8 @@ python manage.py startapp stream_twitter
 python mangae.py runserver
 python manage.py makemigrations stream_twitter
 python manage.py migrate
+
+python manage.py shell
+from django.conf import settings
+print settings.TEMPLATE_PATH
+

@@ -13,7 +13,6 @@ import os
 import dj_database_url
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.7/howto/deployment/checklist/
 
@@ -113,7 +112,8 @@ STATIC_URL = '/static/'
 
 STREAM_NEWS_FEEDS = dict(flat='flat')
 
-LOGIN_URL = '/'
+LOGIN_URL='/accounts/login'
+#LOGIN_URL = '/'
 USE_AUTH = bool(os.environ.get('USE_AUTH'))
 ACCOUNT_SIGNUP_PASSWORD_VERIFICATION = False
 ACCOUNT_AUTHENTICATION_METHOD = "username"

@@ -20,5 +20,7 @@ urlpatterns = patterns('',
     url(r'^discover/', login_required(views.discover)),
     url(r'^follow/$', login_required(views.follow), name='follow'),
     url(r'^unfollow/(?P<target_id>\d+)/$', login_required(views.unfollow), name='unfollow'),
-    url(r'^hashtag/(?P<hashtag_name>.+)/', views.hashtag)
+    url(r'^hashtag/(?P<hashtag_name>.+)/', views.hashtag),
+    #url(r'^accounts/login/', 'django.contrib.auth.views.login',{'template_name': 'admin/login.html'}),
+    #url(r'^accounts/logout/', 'django.contrib.auth.views.logout'),
 )
