@@ -59,6 +59,22 @@ class HomeView(CreateView):
         }
         return render_to_response('stream_twitter/home.html', context_dict, context)
 
+def follow(request):
+    form = FollowForm(request.POST)
+    if form.is_valid():
+        follow = form.instance
+        follow.user = request.user
+        follow.save()
+    return redirect("/timeline/")
+
+
+def unfollow(request, target_id):
+    follow = Follow.objects.filter(user=request.user, target_id=target_id).first()
+    if follow is not None:
+        follow.delete()
+    return redirect("/timeline/")
+
+
 def discover(request):
     users = User.objects.order_by('date_joined')[:50]
     login_user = User.objects.get(username=request.user)
