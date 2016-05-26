@@ -8,6 +8,7 @@ from django.contrib.auth import authenticate, login as auth_login
 #my own model and settings
 from stream_twitter.models import Follow
 from stream_twitter.models import Tweet
+from stream_twitter.models import Hashtag
 from stream_twitter.forms import FollowForm
 from django.contrib.auth.models import User
 from twitterMock import settings

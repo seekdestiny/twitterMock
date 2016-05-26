@@ -19,6 +19,24 @@ class Tweet(activity.Activity, models.Model):
     def activity_object_attr(self):
         return self
 
+    def save(self):
+        self.create_hashtags()
+        super(Tweet, self).save()
+
+    def create_hashtags(self):
+        hashtag_set = set(self.parse_hashtags())
+        for hashtag in hashtag_set:
+            h, created = Hashtag.objects.get_or_create(name=hashtag)
+            h.save()
+        Hashtag.objects.filter(name__in=hashtag_set).update(occurrences=F('occurrences')+1)
+
+    def parse_hashtags(self):
+        return [slugify(i) for i in self.text.split() if i.startswith("#")]
+
+    def parse_mentions(self):
+        mentions = [slugify(i) for i in self.text.split() if i.startswith("@")]
+        return User.objects.filter(username__in=mentions)
+
     def parse_all(self):
         parts = self.text.split()
         hashtag_counter = 0
@@ -48,3 +66,17 @@ class UserProfile(models.Model):
     user = models.OneToOneField(User)
     description = models.TextField()
     picture = models.ImageField(upload_to='profile_pictures', blank=True)
+
+class Hashtag(models.Model):
+    name = models.CharField(max_length=160)
+    occurrences = models.IntegerField(default=0)
+
+
+def unfollow_feed(sender, instance, **kwargs):
+    feed_manager.unfollow_user(instance.user_id, instance.target_id)
+
+
+def follow_feed(sender, instance, created, **kwargs):
+    if created:
+        feed_manager.follow_user(instance.user_id, instance.target_id)
+    
