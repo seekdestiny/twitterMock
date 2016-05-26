@@ -21,6 +21,13 @@ urlpatterns = patterns('',
     url(r'^follow/$', login_required(views.follow), name='follow'),
     url(r'^unfollow/(?P<target_id>\d+)/$', login_required(views.unfollow), name='unfollow'),
     url(r'^hashtag/(?P<hashtag_name>.+)/', views.hashtag),
-    #url(r'^accounts/login/', 'django.contrib.auth.views.login',{'template_name': 'admin/login.html'}),
-    #url(r'^accounts/logout/', 'django.contrib.auth.views.logout'),
+    url(r'^/accounts/login/', 'django.contrib.auth.views.login'),
+    url(r'^/accounts/logout/', 'django.contrib.auth.views.logout', {'next_page': '/'}),
 )
+
+urlpatterns += staticfiles_urlpatterns()
+urlpatterns += patterns(
+    'django.views.static',
+    (r'media/(?P<path>.*)',
+     'serve',
+     {'document_root': settings.MEDIA_ROOT}))

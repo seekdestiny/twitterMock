@@ -32,11 +32,12 @@
                     <i class="glyphicon"></i>  {{ request.user.username }}<b class="caret"></b>
                 </a>
                 <ul class="dropdown-menu">
-                    <!-- <li><a href="/user/{{ login_user }}">My Profile</a></li> -->
-                    <li><a href="{% url 'account_logout' %}">Logout</a></li>
+                    <li><a href="/user/{{ login_user }}">My Profile</a></li>
+                    <li><a href="/accounts/logout/">Logout</a></li>
                 </ul>
             </li>
         {% else %}
+            <li><a href="/accounts/login/">Login</a></li>
             <li>
                 <a href="/accounts/github/login/?process=login">
                     <i class="icon icon-github"></i> Sign in with GitHub

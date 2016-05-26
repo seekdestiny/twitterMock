@@ -108,12 +108,14 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.7/howto/static-files/
 
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = '/media/'
+
 STATIC_URL = '/static/'
 
 STREAM_NEWS_FEEDS = dict(flat='flat')
 
-LOGIN_URL='/accounts/login'
-#LOGIN_URL = '/'
+LOGIN_URL = '/'
 USE_AUTH = bool(os.environ.get('USE_AUTH'))
 ACCOUNT_SIGNUP_PASSWORD_VERIFICATION = False
 ACCOUNT_AUTHENTICATION_METHOD = "username"
@@ -125,6 +127,7 @@ ACCOUNT_LOGOUT_ON_GET = True
 ACCOUNT_EMAIL_REQUIRED = False
 SOCIALACCOUNT_EMAIL_REQUIRED = False
 SOCIALACCOUNT_EMAIL_VERIFICATION = "none"
+SOCIALACCOUNT_AUTO_SIGNUP = True
 ACCOUNT_DEFAULT_HTTP_PROTOCOL = "http"
 
 DEMO_USERNAME = 'jifeiqian'
