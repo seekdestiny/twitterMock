@@ -35,12 +35,12 @@ class TimelineView(CreateView):
         feeds = feed_manager.get_news_feeds(request.user.id)
         activities = feeds.get('flat').get()['results']
         activities = enricher.enrich_activities(activities)
-        #hashtags = Hashtag.objects.order_by('-occurrences')
+        hashtags = Hashtag.objects.order_by('-occurrences')
         context = {
             'activities': activities,
             'form': self.get_form_class(),
             'login_user': request.user,
-            #'hashtags': hashtags
+            'hashtags': hashtags
         }
         return render(request, 'stream_twitter/timeline.html', context)
 
