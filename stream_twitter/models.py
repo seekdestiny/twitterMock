@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.db.models import F
 from django.template.defaultfilters import slugify
 
 from stream_django import activity

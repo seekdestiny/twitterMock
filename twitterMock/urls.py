@@ -18,5 +18,6 @@ urlpatterns = patterns('',
     url(r'^accounts/', include('allauth.urls')),
     url(r'^discover/', login_required(views.discover)),
     url(r'^follow/$', login_required(views.follow), name='follow'),
-    url(r'^unfollow/(?P<target_id>\d+)/$', login_required(views.unfollow), name='unfollow')
+    url(r'^unfollow/(?P<target_id>\d+)/$', login_required(views.unfollow), name='unfollow'),
+    url(r'^hashtag/(?P<hashtag_name>.+)/', views.hashtag)
 )

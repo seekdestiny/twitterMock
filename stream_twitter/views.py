@@ -105,3 +105,15 @@ def user(request, user_name):
         'login_user': request.user
     }
     return render(request, 'stream_twitter/user.html', context)
+
+def hashtag(request, hashtag_name):
+    hashtag_name = hashtag_name.lower()
+    feed = feed_manager.get_feed('user', 'hash_%s' % hashtag_name)
+    activities = feed.get(limit=25)['results']
+
+    activities = enricher.enrich_activities(activities)
+    context = {
+        'hashtag_name': hashtag_name,
+        'activities': activities
+    }
+    return render(request, 'stream_twitter/hashtag.html', context)
