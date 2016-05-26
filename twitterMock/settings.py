@@ -27,11 +27,17 @@ TEMPLATE_DEBUG = True
 
 ALLOWED_HOSTS = []
 
-
+AUTHENTICATION_BACKENDS = (
+    # Needed to login by username in Django admin, regardless of `allauth`
+    "django.contrib.auth.backends.ModelBackend",
+    # `allauth` specific authentication methods, such as login by e-mail
+    "allauth.account.auth_backends.AuthenticationBackend"
+)
 # Application definition
 
 INSTALLED_APPS = (
     'django.contrib.admin',
+    'django.contrib.admindocs',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
@@ -105,9 +111,21 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
+STREAM_NEWS_FEEDS = dict(flat='flat')
 
-SITE_ID = int(os.environ.get('SITE_ID', 1))
+LOGIN_URL = '/'
 USE_AUTH = bool(os.environ.get('USE_AUTH'))
+ACCOUNT_SIGNUP_PASSWORD_VERIFICATION = False
+ACCOUNT_AUTHENTICATION_METHOD = "username"
+ACCOUNT_EMAIL_VERIFICATION = "none"
+SITE_ID = int(os.environ.get('SITE_ID', 1))
+LOGIN_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = '/'
+ACCOUNT_LOGOUT_ON_GET = True
+ACCOUNT_EMAIL_REQUIRED = False
+SOCIALACCOUNT_EMAIL_REQUIRED = False
+SOCIALACCOUNT_EMAIL_VERIFICATION = "none"
+ACCOUNT_DEFAULT_HTTP_PROTOCOL = "http"
 
 DEMO_USERNAME = 'jifeiqian'
 DEMO_PASSWORD = 'Alien880125'

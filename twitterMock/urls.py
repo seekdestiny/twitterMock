@@ -12,6 +12,7 @@ urlpatterns = patterns('',
     # url(r'^blog/', include('blog.urls')),
 
     url(r'^admin/', include(admin.site.urls)),
+    url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
     url(r'^$', views.HomeView.as_view()),   
     url(r'^timeline/', login_required(views.TimelineView.as_view())),
     url(r'^user/(?P<user_name>.+)/$', views.user),

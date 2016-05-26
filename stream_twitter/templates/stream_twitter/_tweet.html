@@ -1,4 +1,6 @@
 {% load filters %}
+{% load socialaccount %}
+{% get_social_accounts tweet.user as accounts %}
 
 <div class="activity">
   <div class="row">
