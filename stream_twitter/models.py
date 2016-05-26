@@ -43,3 +43,8 @@ class Follow(models.Model):
 
     class Meta:
         unique_together = ('user', 'target')
+
+class UserProfile(models.Model):
+    user = models.OneToOneField(User)
+    description = models.TextField()
+    picture = models.ImageField(upload_to='profile_pictures', blank=True)
