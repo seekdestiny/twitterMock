@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.db.models import F
+from django.db.models import signals
 from django.template.defaultfilters import slugify
 
 from stream_django import activity
@@ -55,6 +56,15 @@ class Tweet(activity.Activity, models.Model):
         result[u'parsed_text'] = " ".join(parts)
         return result
 
+    @property
+    def activity_notify(self):
+        targets = [feed_manager.get_news_feeds(self.user_id)['flat']]
+        for hashtag in self.parse_hashtags():
+            targets.append(feed_manager.get_feed('user', 'hash_%s' % hashtag))
+        for user in self.parse_mentions():
+            targets.append(feed_manager.get_news_feeds(user.id)['flat'])
+        return targets
+
 class Follow(models.Model):
     user = models.ForeignKey('auth.User', related_name='friends')
     target = models.ForeignKey('auth.User', related_name='followers')
@@ -80,4 +90,7 @@ def unfollow_feed(sender, instance, **kwargs):
 def follow_feed(sender, instance, created, **kwargs):
     if created:
         feed_manager.follow_user(instance.user_id, instance.target_id)
+
+signals.post_delete.connect(unfollow_feed, sender=Follow)
+signals.post_save.connect(follow_feed, sender=Follow)
     
